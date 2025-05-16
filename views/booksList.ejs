@@ -1,0 +1,10 @@
+<h1>Books List</h1>
+<% if (books.length === 0) { %>
+  <p>No books found.</p>
+<% } else { %>
+  <ul>
+    <% books.forEach(book => { %>
+      <li><%= book.title %> - Rating: <%= book.rating %></li>
+    <% }); %>
+  </ul>
+<% } %>

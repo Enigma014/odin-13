@@ -1,0 +1,10 @@
+<h1>Genres List</h1>
+<% if (genres.length === 0) { %>
+  <p>No genres found.</p>
+<% } else { %>
+  <ul>
+    <% genres.forEach(genre => { %>
+      <li><%= genre.name %>: <%= genre.description %></li>
+    <% }); %>
+  </ul>
+<% } %>
