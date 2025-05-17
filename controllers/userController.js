@@ -110,6 +110,9 @@ async function indexGet(req,res){
 async function searchGet(req,res){
   res.render("search");
 }
+async function updateGet(req,res){
+  res.render("update");
+}
 async function booksGet(req, res) {
   try {
     const books = await db.getAllBooks();
@@ -183,6 +186,37 @@ async function createGenrePost(req, res) {
     await db.insertGenre(name,description);
     res.redirect("/");
 }
+async function booksUpdatePost  (req, res) {
+  try {
+    const { title,update } = req.body;
+    await pool.query("UPDATE my_books SET title = $1  WHERE title ILIKE $2",[update,`%${title}%`]);
+    
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to delete all users");
+  }
+};
+async function genresUpdatePost  (req, res) {
+  try {
+    const { name,update } = req.body;
+    await pool.query("UPDATE genres SET name = $1  WHERE name ILIKE $2",[update,`%${name}%`]);
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update all users");
+  }
+};
+async function authorsUpdatePost  (req, res) {
+  try {
+    const { name,update } = req.body;
+    await pool.query("UPDATE authors SET name = $1  WHERE name ILIKE $2",[update,`%${name}%`]);
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update all users");
+  }
+};
 module.exports = {
   booksGet, booksListGet, booksDeletePost,
   authorsListGet, authorsDeletePost,
@@ -190,6 +224,6 @@ module.exports = {
   AuthorsGet, GenresGet,
   createBookGet, createBooksPost,
   createAuthorGet, createAuthorPost,
-  createGenreGet, createGenrePost,indexGet,deleteGet,searchGet
+  createGenreGet, createGenrePost,indexGet,deleteGet,searchGet,updateGet,authorsUpdatePost,booksUpdatePost,genresUpdatePost
 };
 

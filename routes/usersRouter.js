@@ -32,5 +32,8 @@ router.post("/delete/book", controller.booksDeletePost);
 router.post("/delete/author", controller.authorsDeletePost);
 router.post("/delete/genre", controller.genresDeletePost);
 
-  
+router.get("/update",controller.updateGet);
+router.post("/update/book", controller.booksUpdatePost);
+router.post("/update/author", controller.authorsUpdatePost);
+router.post("/update/genre", controller.genresUpdatePost);
 module.exports = router;
